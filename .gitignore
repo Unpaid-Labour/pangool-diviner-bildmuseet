@@ -1,0 +1,34 @@
+# Dependencies
+node_modules/
+__pycache__/
+*.pyc
+.venv/
+venv/
+
+# Build output
+frontend/dist/
+
+# Logs
+logs/
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# IDE
+.vscode/
+.idea/
+
+# Model files (too large for git)
+models/**/*.gguf
+models/**/*.onnx
+voices/**/*.onnx
+
+# Temp files
+*.wav
+*.aiff
+*.tmp
+
+# Environment
+.env
+.env.local
