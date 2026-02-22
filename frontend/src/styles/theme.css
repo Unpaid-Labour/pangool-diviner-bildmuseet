@@ -86,3 +86,11 @@ html, body, #root {
 .heartbeat {
   animation: heartbeat 1.5s ease-in-out infinite;
 }
+
+/* Neon sign flicker for buttons */
+@keyframes neon-flicker {
+  0%, 100% { opacity: 1; }
+  33% { opacity: 0.85; }
+  66% { opacity: 1; }
+  82% { opacity: 0.9; }
+}

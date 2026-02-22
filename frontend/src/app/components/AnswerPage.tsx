@@ -69,7 +69,7 @@ export function AnswerPage({ answer, onDone }: AnswerPageProps) {
         className="absolute top-6 left-6 text-xs opacity-40"
         style={{ fontFamily: "var(--font-vt323)" }}
       >
-        DIVINATION RECEIVED
+        THE SPIRITS SPEAK
       </div>
 
       {/* Divination text */}
@@ -80,7 +80,7 @@ export function AnswerPage({ answer, onDone }: AnswerPageProps) {
         transition={{ duration: 0.8 }}
       >
         <div
-          className="text-3xl leading-relaxed"
+          className="text-5xl leading-relaxed"
           style={{
             fontFamily: "var(--font-vt323)",
             textShadow: "var(--pangool-text-glow)",
@@ -103,13 +103,13 @@ export function AnswerPage({ answer, onDone }: AnswerPageProps) {
             className="text-sm"
             style={{ fontFamily: "var(--font-vt323)" }}
           >
-            Pangool resets in {countdown}s
+            The veil closes in {countdown}s
           </div>
           <div
             className="text-xs mt-1 opacity-60"
             style={{ fontFamily: "var(--font-vt323)" }}
           >
-            TAP TO CONTINUE
+            TAP TO RELEASE THE SPIRIT
           </div>
         </motion.div>
       )}

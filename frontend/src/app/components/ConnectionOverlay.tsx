@@ -22,14 +22,14 @@ export function ConnectionOverlay() {
         animate={{ opacity: [0.4, 1, 0.4] }}
         transition={{ duration: 2, repeat: Infinity }}
       >
-        the pangool is resting...
+        the spirits have withdrawn...
       </motion.div>
 
       <div
         className="text-sm opacity-40"
         style={{ fontFamily: "var(--font-vt323)", color: "#ff0000" }}
       >
-        RECONNECTING
+        AWAITING THEIR RETURN
       </div>
 
       {/* Animated dots */}

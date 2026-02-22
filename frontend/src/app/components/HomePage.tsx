@@ -47,7 +47,7 @@ export function HomePage({ onStart }: HomePageProps) {
       <div className="flex items-center justify-center size-full">
         <motion.button
           onClick={onStart}
-          className="relative px-16 py-8 border-2 border-red-600 bg-black cursor-pointer"
+          className="relative px-20 py-10 border-2 border-red-600 bg-black cursor-pointer"
           style={{
             fontFamily: "var(--font-orbitron)",
             fontSize: "1.8rem",
@@ -63,8 +63,9 @@ export function HomePage({ onStart }: HomePageProps) {
               "0 0 40px rgba(255,0,0,0.6), inset 0 0 40px rgba(255,0,0,0.2)",
               "0 0 20px rgba(255,0,0,0.3), inset 0 0 20px rgba(255,0,0,0.1)",
             ],
+            opacity: [1, 0.85, 1, 1, 0.9, 1],
           }}
-          transition={{ duration: 1.5, repeat: Infinity, ease: "easeInOut" }}
+          transition={{ duration: 3, repeat: Infinity, ease: "easeInOut" }}
           whileHover={{ scale: 1.05 }}
           whileTap={{ scale: 0.98 }}
         >

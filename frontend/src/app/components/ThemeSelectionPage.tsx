@@ -20,13 +20,13 @@ export function ThemeSelectionPage({ onSelect }: ThemeSelectionPageProps) {
 
       {/* Title */}
       <motion.div
-        className="mb-12 text-center"
+        className="mb-16 text-center"
         initial={{ opacity: 0, y: -20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.6 }}
       >
         <h2
-          className="text-2xl tracking-widest uppercase opacity-80"
+          className="text-4xl tracking-widest uppercase opacity-80"
           style={{ fontFamily: "var(--font-vt323)" }}
         >
           Choose your domain
@@ -34,15 +34,15 @@ export function ThemeSelectionPage({ onSelect }: ThemeSelectionPageProps) {
       </motion.div>
 
       {/* Theme grid */}
-      <div className="grid grid-cols-2 gap-6 max-w-lg px-8">
+      <div className="grid grid-cols-2 gap-8 max-w-2xl px-12">
         {THEMES.map((theme, i) => (
           <motion.button
             key={theme}
             onClick={() => onSelect(theme)}
-            className="relative px-8 py-6 border border-red-600/60 bg-black cursor-pointer"
+            className="relative px-12 py-9 border border-red-600/60 bg-black cursor-pointer"
             style={{
               fontFamily: "var(--font-vt323)",
-              fontSize: "1.5rem",
+              fontSize: "2.25rem",
               color: "#ff0000",
               textTransform: "uppercase",
               letterSpacing: "0.1em",

@@ -9,7 +9,6 @@ interface ThinkingPageProps {
 }
 
 export function ThinkingPage({ theme, question, onDone }: ThinkingPageProps) {
-  const [tokens, setTokens] = useState("");
   const [elapsed, setElapsed] = useState(0);
   const [phase, setPhase] = useState<"loading" | "streaming" | "done">(
     "loading"
@@ -27,9 +26,8 @@ export function ThinkingPage({ theme, question, onDone }: ThinkingPageProps) {
   // Start divination request
   useEffect(() => {
     const controller = requestDivination(theme, question, {
-      onToken: (token) => {
+      onToken: () => {
         setPhase("streaming");
-        setTokens((prev) => prev + token);
       },
       onDone: (fullText) => {
         setPhase("done");
@@ -82,78 +80,45 @@ export function ThinkingPage({ theme, question, onDone }: ThinkingPageProps) {
       </div>
 
       {/* Main content */}
-      {phase === "loading" && (
+      {/* Loading visual — shown during all phases (loading, streaming, done) */}
+      <motion.div
+        className="text-center"
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+      >
         <motion.div
-          className="text-center"
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
+          className={`${phase === "done" ? "text-4xl" : "text-3xl"} mb-6`}
+          style={{
+            fontFamily: "var(--font-vt323)",
+            textShadow: "var(--pangool-text-glow)",
+          }}
+          animate={{ opacity: [0.5, 1, 0.5] }}
+          transition={{ duration: 1.5, repeat: Infinity }}
         >
-          <motion.div
-            className="text-3xl mb-6"
-            style={{
-              fontFamily: "var(--font-vt323)",
-              textShadow: "var(--pangool-text-glow)",
-            }}
-            animate={{ opacity: [0.5, 1, 0.5] }}
-            transition={{ duration: 1.5, repeat: Infinity }}
-          >
-            The ancestors are thinking ... {elapsed}s
-          </motion.div>
-
-          {/* Loading bars */}
-          <div className="flex gap-2 justify-center">
-            {Array.from({ length: 8 }).map((_, i) => (
-              <motion.div
-                key={i}
-                className="w-3 bg-red-600/60 rounded-sm"
-                animate={{
-                  height: [4, 20 + Math.random() * 20, 4],
-                  opacity: [0.3, 0.8, 0.3],
-                }}
-                transition={{
-                  duration: 0.8 + Math.random() * 0.4,
-                  repeat: Infinity,
-                  delay: i * 0.15,
-                }}
-              />
-            ))}
-          </div>
+          {phase === "done"
+            ? "THE ANCESTORS HAVE SPOKEN"
+            : `The spirits stir beyond the veil ... ${elapsed}s`}
         </motion.div>
-      )}
 
-      {(phase === "streaming" || phase === "done") && (
-        <motion.div
-          className="max-w-2xl text-center"
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ duration: 0.5 }}
-        >
-          <div
-            className="text-2xl leading-relaxed"
-            style={{
-              fontFamily: "var(--font-vt323)",
-              textShadow: "0 0 8px rgba(255,0,0,0.4)",
-            }}
-          >
-            {tokens}
-            {phase === "streaming" && (
-              <span className="cursor-blink">_</span>
-            )}
-          </div>
-
-          {phase === "done" && (
+        {/* Loading bars */}
+        <div className="flex gap-2 justify-center">
+          {Array.from({ length: 8 }).map((_, i) => (
             <motion.div
-              className="mt-8 text-sm opacity-40"
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 0.4 }}
-              transition={{ delay: 0.5 }}
-              style={{ fontFamily: "var(--font-vt323)" }}
-            >
-              TRANSMISSION COMPLETE
-            </motion.div>
-          )}
-        </motion.div>
-      )}
+              key={i}
+              className="w-3 bg-red-600/60 rounded-sm"
+              animate={{
+                height: [4, 20 + Math.random() * 20, 4],
+                opacity: [0.3, 0.8, 0.3],
+              }}
+              transition={{
+                duration: 0.8 + Math.random() * 0.4,
+                repeat: Infinity,
+                delay: i * 0.15,
+              }}
+            />
+          ))}
+        </div>
+      </motion.div>
     </div>
   );
 }

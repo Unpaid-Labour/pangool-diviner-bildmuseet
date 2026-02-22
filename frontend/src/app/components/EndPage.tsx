@@ -112,21 +112,21 @@ export function EndPage({ onRestart }: EndPageProps) {
             letterSpacing: "0.2em",
           }}
         >
-          THANK YOU
+          THE ANCESTORS HAVE SPOKEN
         </h1>
 
         <div
           className="text-lg opacity-60 mb-2"
           style={{ fontFamily: "var(--font-vt323)" }}
         >
-          TRANSMISSION TERMINATED
+          THE VEIL CLOSES
         </div>
 
         <div
           className="text-sm opacity-40"
           style={{ fontFamily: "var(--font-vt323)" }}
         >
-          CONNECTION CLOSED
+          SILENCE DESCENDS
         </div>
       </motion.div>
 
@@ -150,7 +150,7 @@ export function EndPage({ onRestart }: EndPageProps) {
         }}
         whileTap={{ scale: 0.95 }}
       >
-        RESTART
+        SEEK AGAIN
       </motion.button>
 
       {/* Auto-restart countdown */}
@@ -158,7 +158,7 @@ export function EndPage({ onRestart }: EndPageProps) {
         className="absolute bottom-12 text-sm opacity-40"
         style={{ fontFamily: "var(--font-vt323)" }}
       >
-        AUTO-RESET IN {countdown}s
+        THE VOID RECLAIMS IN {countdown}s
       </div>
 
       {/* Binary string animation */}
