@@ -1,7 +1,7 @@
 import { useState, useEffect, useCallback } from "react";
 import { HomePage } from "./components/HomePage";
 import { ThemeSelectionPage } from "./components/ThemeSelectionPage";
-import { ListeningPage } from "./components/ListeningPage";
+// import { ListeningPage } from "./components/ListeningPage"; // BYPASSED: listening stage
 import { ThinkingPage } from "./components/ThinkingPage";
 import { AnswerPage } from "./components/AnswerPage";
 import { EndPage } from "./components/EndPage";
@@ -62,10 +62,10 @@ export function App() {
     setStage("thinking");
   }, []);
 
-  const handleListeningDone = useCallback((speech: string | null) => {
-    setUserSpeech(speech);
-    setStage("thinking");
-  }, []);
+  // const handleListeningDone = useCallback((speech: string | null) => {
+  //   setUserSpeech(speech);
+  //   setStage("thinking");
+  // }, []);
 
   const handleDivinationDone = useCallback((answer: string) => {
     setModelAnswer(answer);
@@ -89,12 +89,9 @@ export function App() {
       )}
 
       {/* BYPASSED: listening stage — theme-only divination, no user question.
-         Uncomment to re-enable speech input:
+         To re-enable: uncomment ListeningPage import, handleListeningDone, and this block:
       {stage === "listening" && (
-        <ListeningPage
-          theme={selectedTheme}
-          onDone={handleListeningDone}
-        />
+        <ListeningPage theme={selectedTheme} onDone={handleListeningDone} />
       )}
       */}
 
