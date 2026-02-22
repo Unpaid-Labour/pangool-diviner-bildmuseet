@@ -4,8 +4,9 @@ PARAMETER temperature 0.8
 PARAMETER top_p 0.9
 PARAMETER num_predict 100
 PARAMETER stop "<end_of_turn>"
-PARAMETER stop "<bos>"
 PARAMETER stop "<start_of_turn>"
+PARAMETER stop "<bos>"
+PARAMETER stop "<eos>"
 
 TEMPLATE """<start_of_turn>user
 {{ .System }}

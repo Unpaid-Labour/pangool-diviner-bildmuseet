@@ -83,7 +83,12 @@ async def generate_divination(
                 data = json.loads(line)
                 token = data.get("response", "")
                 # Filter out special tokens leaking from the model
-                for special in ("<bos>", "<end_of_turn>", "<start_of_turn>"):
+                # Filter all Gemma special/template tokens
+                for special in (
+                    "<bos>", "<eos>",
+                    "<start_of_turn>", "<end_of_turn>",
+                    "model", "user",
+                ):
                     token = token.replace(special, "")
                 if token:
                     # Yield character-by-character for smooth typewriter effect
