@@ -55,9 +55,11 @@ export function App() {
     setModelAnswer("");
   }, []);
 
+  // BYPASSED: listening stage skipped — theme-only divination (no user question).
+  // ListeningPage code preserved below for potential future use.
   const handleThemeSelected = useCallback((theme: string) => {
     setSelectedTheme(theme);
-    setStage("listening");
+    setStage("thinking");
   }, []);
 
   const handleListeningDone = useCallback((speech: string | null) => {
@@ -86,12 +88,15 @@ export function App() {
         <ThemeSelectionPage onSelect={handleThemeSelected} />
       )}
 
+      {/* BYPASSED: listening stage — theme-only divination, no user question.
+         Uncomment to re-enable speech input:
       {stage === "listening" && (
         <ListeningPage
           theme={selectedTheme}
           onDone={handleListeningDone}
         />
       )}
+      */}
 
       {stage === "thinking" && (
         <ThinkingPage
