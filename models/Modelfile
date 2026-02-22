@@ -5,6 +5,7 @@ PARAMETER top_p 0.9
 PARAMETER num_predict 100
 PARAMETER stop "<end_of_turn>"
 PARAMETER stop "<bos>"
+PARAMETER stop "<start_of_turn>"
 
 TEMPLATE """<start_of_turn>user
 {{ .System }}

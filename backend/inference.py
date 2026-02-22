@@ -83,7 +83,8 @@ async def generate_divination(
                 data = json.loads(line)
                 token = data.get("response", "")
                 # Filter out special tokens leaking from the model
-                token = token.replace("<bos>", "").replace("<end_of_turn>", "")
+                for special in ("<bos>", "<end_of_turn>", "<start_of_turn>"):
+                    token = token.replace(special, "")
                 if token:
                     # Yield character-by-character for smooth typewriter effect
                     for char in token:
