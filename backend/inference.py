@@ -4,7 +4,7 @@ import httpx
 from collections.abc import AsyncIterator
 
 OLLAMA_BASE_URL = "http://localhost:11434"
-MODEL_NAME = "gemma3:4b"
+MODEL_NAME = "pangool"
 
 SYSTEM_PROMPT = (
     "You are the Pangool, an ancient oracle spirit dwelling within a digital sculpture. "
