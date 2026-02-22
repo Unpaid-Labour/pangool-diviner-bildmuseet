@@ -2,6 +2,7 @@
 
 import json
 import random
+import re
 
 import httpx
 from collections.abc import AsyncIterator
@@ -83,13 +84,9 @@ async def generate_divination(
                 data = json.loads(line)
                 token = data.get("response", "")
                 # Filter out special tokens leaking from the model
-                # Filter all Gemma special/template tokens
-                for special in (
-                    "<bos>", "<eos>",
-                    "<start_of_turn>", "<end_of_turn>",
-                    "model", "user",
-                ):
-                    token = token.replace(special, "")
+                # Strip any angle-bracket tokens (Gemma template tokens,
+                # hallucinated tags like <hashlib>, etc.)
+                token = re.sub(r"<[^>]*>?", "", token)
                 if token:
                     # Yield character-by-character for smooth typewriter effect
                     for char in token:
