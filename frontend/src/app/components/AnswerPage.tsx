@@ -7,7 +7,7 @@ interface AnswerPageProps {
 }
 
 const CHAR_DELAY_MS = 50;
-const AUTO_ADVANCE_MS = 20_000; // 20s after fully typed
+const AUTO_ADVANCE_MS = 40_000; // 40s after fully typed
 
 export function AnswerPage({ answer, onDone }: AnswerPageProps) {
   const [displayed, setDisplayed] = useState("");
@@ -100,13 +100,13 @@ export function AnswerPage({ answer, onDone }: AnswerPageProps) {
           transition={{ delay: 1 }}
         >
           <div
-            className="text-sm"
+            className="text-2xl"
             style={{ fontFamily: "var(--font-vt323)" }}
           >
             The veil closes in {countdown}s
           </div>
           <div
-            className="text-xs mt-1 opacity-60"
+            className="text-xl mt-1 opacity-60"
             style={{ fontFamily: "var(--font-vt323)" }}
           >
             TAP TO RELEASE THE SPIRIT

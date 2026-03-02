@@ -87,7 +87,7 @@ export function ThinkingPage({ theme, question, onDone }: ThinkingPageProps) {
         animate={{ opacity: 1 }}
       >
         <motion.div
-          className={`${phase === "done" ? "text-4xl" : "text-3xl"} mb-6`}
+          className={`${phase === "done" ? "text-8xl" : "text-7xl"} mb-6`}
           style={{
             fontFamily: "var(--font-vt323)",
             textShadow: "var(--pangool-text-glow)",
@@ -97,7 +97,7 @@ export function ThinkingPage({ theme, question, onDone }: ThinkingPageProps) {
         >
           {phase === "done"
             ? "THE ANCESTORS HAVE SPOKEN"
-            : `The spirits stir beyond the veil ... ${elapsed}s`}
+            : "The spirits stir beyond the veil ..."}
         </motion.div>
 
         {/* Loading bars */}

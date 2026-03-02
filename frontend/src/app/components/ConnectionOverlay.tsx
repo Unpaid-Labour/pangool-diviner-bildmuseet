@@ -13,7 +13,7 @@ export function ConnectionOverlay() {
       transition={{ duration: 0.5 }}
     >
       <motion.div
-        className="text-3xl mb-6"
+        className="text-7xl mb-6"
         style={{
           fontFamily: "var(--font-vt323)",
           color: "#ff0000",
@@ -26,7 +26,7 @@ export function ConnectionOverlay() {
       </motion.div>
 
       <div
-        className="text-sm opacity-40"
+        className="text-2xl opacity-40"
         style={{ fontFamily: "var(--font-vt323)", color: "#ff0000" }}
       >
         AWAITING THEIR RETURN

@@ -106,7 +106,7 @@ export function ListeningPage({ theme, onDone }: ListeningPageProps) {
         transition={{ duration: 0.5 }}
       >
         <div
-          className="text-4xl mb-4"
+          className="text-8xl mb-4"
           style={{
             fontFamily: "var(--font-vt323)",
             textShadow: "var(--pangool-text-glow)",
@@ -115,7 +115,7 @@ export function ListeningPage({ theme, onDone }: ListeningPageProps) {
           {isRecording ? "listening..." : "speak your question"}
         </div>
         <div
-          className="text-lg opacity-50"
+          className="text-3xl opacity-50"
           style={{ fontFamily: "var(--font-vt323)" }}
         >
           or tap skip to let the spirits choose
@@ -176,7 +176,7 @@ export function ListeningPage({ theme, onDone }: ListeningPageProps) {
               className="px-8 py-3 border border-red-600/60 bg-black cursor-pointer text-red-600 uppercase tracking-wider"
               style={{
                 fontFamily: "var(--font-vt323)",
-                fontSize: "1.2rem",
+                fontSize: "3rem",
                 textShadow: "0 0 8px rgba(255,0,0,0.5)",
               }}
             >
@@ -188,7 +188,7 @@ export function ListeningPage({ theme, onDone }: ListeningPageProps) {
             className="px-8 py-3 border border-red-600/30 bg-black cursor-pointer text-red-600/50 uppercase tracking-wider"
             style={{
               fontFamily: "var(--font-vt323)",
-              fontSize: "1.2rem",
+              fontSize: "3rem",
             }}
           >
             skip

@@ -1,6 +1,5 @@
 import { useState, useEffect, useCallback } from "react";
 import { HomePage } from "./components/HomePage";
-import { ThemeSelectionPage } from "./components/ThemeSelectionPage";
 // import { ListeningPage } from "./components/ListeningPage"; // BYPASSED: listening stage
 import { ThinkingPage } from "./components/ThinkingPage";
 import { AnswerPage } from "./components/AnswerPage";
@@ -10,7 +9,6 @@ import { checkHealth } from "@/lib/api";
 
 export type Stage =
   | "home"
-  | "theme-selection"
   | "listening"
   | "thinking"
   | "answer"
@@ -55,9 +53,8 @@ export function App() {
     setModelAnswer("");
   }, []);
 
-  // BYPASSED: listening stage skipped — theme-only divination (no user question).
-  // ListeningPage code preserved below for potential future use.
-  const handleThemeSelected = useCallback((theme: string) => {
+  // HomePage picks a random theme via icon-grid animation, then calls this handler.
+  const handleHomeStart = useCallback((theme: string) => {
     setSelectedTheme(theme);
     setStage("thinking");
   }, []);
@@ -81,11 +78,7 @@ export function App() {
       {!connected && <ConnectionOverlay />}
 
       {stage === "home" && (
-        <HomePage onStart={() => setStage("theme-selection")} />
-      )}
-
-      {stage === "theme-selection" && (
-        <ThemeSelectionPage onSelect={handleThemeSelected} />
+        <HomePage onStart={handleHomeStart} />
       )}
 
       {/* BYPASSED: listening stage — theme-only divination, no user question.

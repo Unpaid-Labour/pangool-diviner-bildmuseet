@@ -7,7 +7,7 @@ interface EndPageProps {
 
 const NUM_PARTICLES = 50;
 const NUM_RINGS = 5;
-const AUTO_RESTART_MS = 15_000;
+const AUTO_RESTART_MS = 30_000;
 
 export function EndPage({ onRestart }: EndPageProps) {
   const [countdown, setCountdown] = useState(AUTO_RESTART_MS / 1000);
@@ -116,14 +116,14 @@ export function EndPage({ onRestart }: EndPageProps) {
         </h1>
 
         <div
-          className="text-lg opacity-60 mb-2"
+          className="text-4xl opacity-60 mb-2"
           style={{ fontFamily: "var(--font-vt323)" }}
         >
           THE VEIL CLOSES
         </div>
 
         <div
-          className="text-sm opacity-40"
+          className="text-2xl opacity-40"
           style={{ fontFamily: "var(--font-vt323)" }}
         >
           SILENCE DESCENDS
@@ -135,7 +135,7 @@ export function EndPage({ onRestart }: EndPageProps) {
         className="relative z-10 mt-12 px-10 py-4 border border-red-600/50 bg-black cursor-pointer"
         style={{
           fontFamily: "var(--font-orbitron)",
-          fontSize: "1rem",
+          fontSize: "2.5rem",
           fontWeight: 700,
           color: "#ff0000",
           textTransform: "uppercase",
@@ -155,7 +155,7 @@ export function EndPage({ onRestart }: EndPageProps) {
 
       {/* Auto-restart countdown */}
       <div
-        className="absolute bottom-12 text-sm opacity-40"
+        className="absolute bottom-12 text-2xl opacity-40"
         style={{ fontFamily: "var(--font-vt323)" }}
       >
         THE VOID RECLAIMS IN {countdown}s
