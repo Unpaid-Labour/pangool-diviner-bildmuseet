@@ -6,7 +6,7 @@ interface AnswerPageProps {
   onDone: () => void;
 }
 
-const CHAR_DELAY_MS = 50;
+const CHAR_DELAY_MS = 90;
 const AUTO_ADVANCE_MS = 40_000; // 40s after fully typed
 
 export function AnswerPage({ answer, onDone }: AnswerPageProps) {
@@ -52,7 +52,7 @@ export function AnswerPage({ answer, onDone }: AnswerPageProps) {
 
   return (
     <div
-      className="relative size-full grid-bg scanlines overflow-hidden flex flex-col items-center justify-center p-12 cursor-pointer"
+      className="relative size-full grid-bg scanlines overflow-hidden flex flex-col items-center justify-center px-8 py-12 cursor-pointer"
       onClick={typingDone ? onDone : undefined}
     >
       {/* Background glow */}
@@ -66,7 +66,7 @@ export function AnswerPage({ answer, onDone }: AnswerPageProps) {
 
       {/* Corner decorations */}
       <div
-        className="absolute top-6 left-6 text-xs opacity-40"
+        className="absolute top-6 left-6 text-2xl opacity-40"
         style={{ fontFamily: "var(--font-vt323)" }}
       >
         THE SPIRITS SPEAK
@@ -74,13 +74,13 @@ export function AnswerPage({ answer, onDone }: AnswerPageProps) {
 
       {/* Divination text */}
       <motion.div
-        className="max-w-2xl text-center"
+        className="max-w-xl text-center"
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ duration: 0.8 }}
       >
         <div
-          className="text-5xl leading-relaxed"
+          className="text-7xl leading-relaxed"
           style={{
             fontFamily: "var(--font-vt323)",
             textShadow: "var(--pangool-text-glow)",
@@ -94,7 +94,7 @@ export function AnswerPage({ answer, onDone }: AnswerPageProps) {
       {/* Footer status */}
       {typingDone && (
         <motion.div
-          className="absolute bottom-8 text-center"
+          className="absolute bottom-10 text-center"
           initial={{ opacity: 0 }}
           animate={{ opacity: 0.5 }}
           transition={{ delay: 1 }}

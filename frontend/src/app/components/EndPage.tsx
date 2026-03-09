@@ -7,7 +7,7 @@ interface EndPageProps {
 
 const NUM_PARTICLES = 50;
 const NUM_RINGS = 5;
-const AUTO_RESTART_MS = 30_000;
+const AUTO_RESTART_MS = 7_000;
 
 export function EndPage({ onRestart }: EndPageProps) {
   const [countdown, setCountdown] = useState(AUTO_RESTART_MS / 1000);
@@ -97,30 +97,23 @@ export function EndPage({ onRestart }: EndPageProps) {
 
       {/* Main text */}
       <motion.div
-        className="relative z-10 text-center"
+        className="relative z-10 text-center px-8"
         initial={{ scale: 0.5, opacity: 0 }}
         animate={{ scale: 1, opacity: 1 }}
         transition={{ duration: 0.8, type: "spring" }}
       >
         <h1
-          className="text-6xl mb-4"
+          className="text-5xl mb-4"
           style={{
             fontFamily: "var(--font-orbitron)",
             fontWeight: 900,
             color: "#ff0000",
             textShadow: "var(--pangool-glow-intense)",
-            letterSpacing: "0.2em",
+            letterSpacing: "0.12em",
           }}
         >
-          THE ANCESTORS HAVE SPOKEN
-        </h1>
-
-        <div
-          className="text-4xl opacity-60 mb-2"
-          style={{ fontFamily: "var(--font-vt323)" }}
-        >
           THE VEIL CLOSES
-        </div>
+        </h1>
 
         <div
           className="text-2xl opacity-40"
@@ -155,7 +148,7 @@ export function EndPage({ onRestart }: EndPageProps) {
 
       {/* Auto-restart countdown */}
       <div
-        className="absolute bottom-12 text-2xl opacity-40"
+        className="absolute bottom-14 text-2xl opacity-40"
         style={{ fontFamily: "var(--font-vt323)" }}
       >
         THE VOID RECLAIMS IN {countdown}s
@@ -163,7 +156,7 @@ export function EndPage({ onRestart }: EndPageProps) {
 
       {/* Binary string animation */}
       <div
-        className="absolute bottom-6 text-xs opacity-20 tracking-widest"
+        className="absolute bottom-8 text-xs opacity-20 tracking-widest"
         style={{ fontFamily: "var(--font-vt323)" }}
       >
         {binaryStr}

@@ -100,13 +100,13 @@ export function ListeningPage({ theme, onDone }: ListeningPageProps) {
 
       {/* Listening indicator */}
       <motion.div
-        className="heartbeat mb-8 text-center"
+        className="heartbeat mb-8 text-center px-8"
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ duration: 0.5 }}
       >
         <div
-          className="text-8xl mb-4"
+          className="text-6xl mb-4"
           style={{
             fontFamily: "var(--font-vt323)",
             textShadow: "var(--pangool-text-glow)",
@@ -115,7 +115,7 @@ export function ListeningPage({ theme, onDone }: ListeningPageProps) {
           {isRecording ? "listening..." : "speak your question"}
         </div>
         <div
-          className="text-3xl opacity-50"
+          className="text-2xl opacity-50"
           style={{ fontFamily: "var(--font-vt323)" }}
         >
           or tap skip to let the spirits choose
@@ -165,7 +165,7 @@ export function ListeningPage({ theme, onDone }: ListeningPageProps) {
       {/* Action buttons */}
       {showSkip && (
         <motion.div
-          className="absolute bottom-8 flex gap-6"
+          className="absolute bottom-8 flex gap-6 mx-8"
           initial={{ opacity: 0, y: 10 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.3 }}

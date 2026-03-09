@@ -135,21 +135,21 @@ export function HomePage({ onStart }: HomePageProps) {
       />
 
       {/* Corner decorations */}
-      <div className="absolute top-6 left-6 text-xs opacity-60" style={{ fontFamily: "var(--font-vt323)" }}>
+      <div className="absolute top-6 left-6 text-2xl opacity-60" style={{ fontFamily: "var(--font-vt323)" }}>
         <div>SYS.PANGOOL v2.1</div>
         <div>STATUS: ACTIVE</div>
       </div>
 
-      <div className="absolute top-6 right-6 text-xs opacity-60 text-right" style={{ fontFamily: "var(--font-vt323)" }}>
+      <div className="absolute top-6 right-6 text-2xl opacity-60 text-right" style={{ fontFamily: "var(--font-vt323)" }}>
         <div>{time}</div>
         <div>SIGNAL: STRONG</div>
       </div>
 
-      <div className="absolute bottom-6 left-6 text-xs opacity-40" style={{ fontFamily: "var(--font-vt323)" }}>
+      <div className="absolute bottom-6 left-6 text-2xl opacity-40" style={{ fontFamily: "var(--font-vt323)" }}>
         TRANSMISSION READY
       </div>
 
-      <div className="absolute bottom-6 right-6 text-xs opacity-40" style={{ fontFamily: "var(--font-vt323)" }}>
+      <div className="absolute bottom-6 right-6 text-2xl opacity-40" style={{ fontFamily: "var(--font-vt323)" }}>
         ORACLE AWAITS
       </div>
 
@@ -161,10 +161,10 @@ export function HomePage({ onStart }: HomePageProps) {
             <motion.button
               key="fate-button"
               onClick={handleTap}
-              className="relative px-40 py-20 border-4 border-red-600 bg-black cursor-pointer"
+              className="relative mx-[70px] px-16 py-12 border-4 border-red-600 bg-black cursor-pointer text-center"
               style={{
                 fontFamily: "var(--font-orbitron)",
-                fontSize: "3.6rem",
+                fontSize: "3.7rem",
                 fontWeight: 700,
                 color: "#ff0000",
                 textTransform: "uppercase",
@@ -183,7 +183,8 @@ export function HomePage({ onStart }: HomePageProps) {
               transition={{ duration: 3, repeat: Infinity, ease: "easeInOut" }}
               whileTap={{ scale: 0.98 }}
             >
-              Reach for your fate
+              <span className="block">Reach</span>
+              <span className="block">for your fate</span>
             </motion.button>
           )}
 
@@ -196,7 +197,7 @@ export function HomePage({ onStart }: HomePageProps) {
               exit={{ opacity: 0 }}
               transition={{ duration: 0.3 }}
               style={{
-                fontSize: "16rem",
+                fontSize: "22rem",
                 color: "#ff0000",
                 fontFamily: "serif",
                 textShadow: "0 0 20px rgba(255,0,0,0.6), 0 0 40px rgba(255,0,0,0.3)",
@@ -223,7 +224,7 @@ export function HomePage({ onStart }: HomePageProps) {
               exit={{ opacity: 0 }}
               transition={{ duration: 0.8, ease: "easeOut" }}
               style={{
-                fontSize: "8rem",
+                fontSize: "16rem",
                 color: "#ff0000",
                 fontFamily: "serif",
                 textShadow: "0 0 30px rgba(255,0,0,0.8), 0 0 60px rgba(255,0,0,0.5)",
@@ -253,7 +254,7 @@ export function HomePage({ onStart }: HomePageProps) {
               }}
               transition={{ duration: 1, ease: "easeInOut" }}
               style={{
-                fontSize: "8rem",
+                fontSize: "16rem",
                 color: "#ff0000",
                 fontFamily: "serif",
                 lineHeight: 1,

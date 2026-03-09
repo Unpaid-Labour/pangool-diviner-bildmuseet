@@ -13,7 +13,7 @@ export function ConnectionOverlay() {
       transition={{ duration: 0.5 }}
     >
       <motion.div
-        className="text-7xl mb-6"
+        className="text-5xl mb-6 px-8"
         style={{
           fontFamily: "var(--font-vt323)",
           color: "#ff0000",

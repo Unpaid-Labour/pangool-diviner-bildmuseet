@@ -23,8 +23,10 @@ export function App() {
   const [modelAnswer, setModelAnswer] = useState<string>("");
   const [connected, setConnected] = useState(true);
 
-  // Connection health polling
+  // Connection health polling — skip during active stages to avoid
+  // false disconnects when the backend is busy with inference or TTS.
   useEffect(() => {
+    if (stage === "thinking" || stage === "answer") return;
     const poll = async () => {
       const ok = await checkHealth();
       setConnected(ok);
@@ -32,7 +34,7 @@ export function App() {
     poll();
     const interval = setInterval(poll, 10_000);
     return () => clearInterval(interval);
-  }, []);
+  }, [stage]);
 
   // Idle timeout — reset to home if no interaction
   useEffect(() => {
