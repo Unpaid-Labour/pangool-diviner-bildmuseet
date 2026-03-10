@@ -35,21 +35,22 @@ torch.load = lambda *args, **kwargs: _orig_torch_load(
     *args, **{**kwargs, "weights_only": False}
 )
 
-# Eager-load model and precompute speaker latents at import time
+# Eager-load model and pre-compute voice conditioning at import time
 _model = None
+_config = None
 _gpt_cond_latent = None
 _speaker_embedding = None
 
 try:
-    config = XttsConfig()
-    config.load_json(str(MODELS_DIR / "config.json"))
-    _model = Xtts.init_from_config(config)
-    _model.load_checkpoint(config, checkpoint_dir=str(MODELS_DIR), eval=True)
+    _config = XttsConfig()
+    _config.load_json(str(MODELS_DIR / "config.json"))
+    _model = Xtts.init_from_config(_config)
+    _model.load_checkpoint(_config, checkpoint_dir=str(MODELS_DIR), eval=True)
     _model.to(DEVICE)
 
     if REFERENCE_WAV.exists():
         _gpt_cond_latent, _speaker_embedding = _model.get_conditioning_latents(
-            audio_path=[str(REFERENCE_WAV)]
+            audio_path=[str(REFERENCE_WAV)], gpt_cond_len=6
         )
         logger.info("Afro-TTS loaded on %s, reference: %s", DEVICE, REFERENCE_WAV)
     else:
@@ -73,9 +74,9 @@ def synthesize(text: str) -> Path | None:
         try:
             out = _model.inference(
                 text,
-                "en",
-                _gpt_cond_latent,
-                _speaker_embedding,
+                language="en",
+                gpt_cond_latent=_gpt_cond_latent,
+                speaker_embedding=_speaker_embedding,
             )
             sf.write(str(output_path), out["wav"], 24000)
             logger.info("Afro-TTS generated: %s", output_path)
