@@ -19,6 +19,7 @@ from inference import generate_divination
 from tts import synthesize
 from audio import play_audio
 from stt import transcribe
+from divination_log import log_divination
 
 logging.basicConfig(
     level=logging.INFO,
@@ -77,6 +78,7 @@ async def divine(request: Request, body: DivineRequest):
                     logger.info("Client disconnected during divination")
                     return
 
+            log_divination(body.theme, body.question, full_text)
             yield {
                 "event": "done",
                 "data": json.dumps({"full_text": full_text}),

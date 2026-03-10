@@ -6,7 +6,6 @@ interface EndPageProps {
 }
 
 const NUM_PARTICLES = 50;
-const NUM_RINGS = 5;
 const AUTO_RESTART_MS = 7_000;
 
 export function EndPage({ onRestart }: EndPageProps) {
@@ -34,63 +33,54 @@ export function EndPage({ onRestart }: EndPageProps) {
     return () => clearInterval(interval);
   }, []);
 
-  // Pre-compute particle positions
+  // Particles that drift INWARD toward center (reversed direction)
   const particles = useMemo(
     () =>
-      Array.from({ length: NUM_PARTICLES }, () => ({
-        angle: Math.random() * 360,
-        distance: 100 + Math.random() * 300,
-        size: 2 + Math.random() * 4,
-        duration: 2 + Math.random() * 3,
-        delay: Math.random() * 2,
-      })),
+      Array.from({ length: NUM_PARTICLES }, () => {
+        const angle = Math.random() * 360;
+        const distance = 150 + Math.random() * 350;
+        return {
+          // Start far away
+          startX: Math.cos((angle * Math.PI) / 180) * distance,
+          startY: Math.sin((angle * Math.PI) / 180) * distance,
+          size: 1.5 + Math.random() * 3.5,
+          duration: 2.5 + Math.random() * 3,
+          delay: Math.random() * 2,
+        };
+      }),
     []
   );
 
   return (
     <div className="relative size-full grid-bg scanlines overflow-hidden flex flex-col items-center justify-center">
-      {/* Glitch flash */}
+      {/* Edge distortion — pulsing vignette */}
       <motion.div
-        className="absolute inset-0 bg-white pointer-events-none z-40"
-        animate={{ opacity: [0, 0, 0.8, 0, 0, 0] }}
-        transition={{ duration: 4, repeat: Infinity, repeatDelay: 3 }}
+        className="absolute inset-0 pointer-events-none z-30"
+        style={{
+          background:
+            "radial-gradient(ellipse at center, transparent 30%, rgba(0,0,0,0.6) 70%, rgba(0,0,0,0.95) 100%)",
+        }}
+        animate={{ opacity: [0.7, 1, 0.7] }}
+        transition={{ duration: 2.5, repeat: Infinity, ease: "easeInOut" }}
       />
 
-      {/* Concentric rings */}
-      {Array.from({ length: NUM_RINGS }).map((_, i) => (
-        <motion.div
-          key={i}
-          className="absolute rounded-full border border-red-600/20"
-          style={{
-            width: 100 + i * 80,
-            height: 100 + i * 80,
-          }}
-          animate={{ rotate: i % 2 === 0 ? 360 : -360 }}
-          transition={{
-            duration: 8 + i * 4,
-            repeat: Infinity,
-            ease: "linear",
-          }}
-        />
-      ))}
-
-      {/* Exploding particles */}
+      {/* Particles drifting inward */}
       {particles.map((p, i) => (
         <motion.div
           key={i}
           className="absolute rounded-full bg-red-600"
           style={{ width: p.size, height: p.size }}
-          initial={{ x: 0, y: 0, opacity: 0.8 }}
+          initial={{ x: p.startX, y: p.startY, opacity: 0.7 }}
           animate={{
-            x: Math.cos((p.angle * Math.PI) / 180) * p.distance,
-            y: Math.sin((p.angle * Math.PI) / 180) * p.distance,
+            x: (Math.random() - 0.5) * 10, // converge near center
+            y: (Math.random() - 0.5) * 40,
             opacity: 0,
           }}
           transition={{
             duration: p.duration,
             repeat: Infinity,
             delay: p.delay,
-            ease: "easeOut",
+            ease: "easeIn",
           }}
         />
       ))}
