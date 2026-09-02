@@ -2,6 +2,9 @@ FROM ./pangool_exp06.gguf
 
 PARAMETER temperature 0.8
 PARAMETER top_p 0.9
+PARAMETER min_p 0.08
+PARAMETER top_k 40
+PARAMETER repeat_penalty 1.05
 PARAMETER num_predict 100
 PARAMETER stop "<end_of_turn>"
 PARAMETER stop "<start_of_turn>"

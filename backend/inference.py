@@ -10,6 +10,67 @@ from collections.abc import AsyncIterator
 OLLAMA_BASE_URL = "http://localhost:11434"
 MODEL_NAME = "pangool"
 
+# Sent with every request, overriding the baked Modelfile params. Ollama
+# runtimes newer than ~April 2026 sample tail tokens the launch runtime never
+# surfaced (random foreign-script words mid-proverb); min_p prunes them.
+GENERATION_OPTIONS = {
+    "min_p": 0.08,
+    "top_k": 40,
+    "repeat_penalty": 1.05,
+}
+
+# Typographic characters the model legitimately produces, mapped to ASCII so
+# the non-ASCII strip below doesn't eat them.
+_UNICODE_PUNCT = {
+    "‘": "'",
+    "’": "'",
+    "“": '"',
+    "”": '"',
+    "–": "-",
+    "—": "-",
+    "…": "...",
+}
+
+
+def sanitize_divination(text: str) -> str:
+    """Reduce a raw generation to just the proverb.
+
+    Newer Ollama runtimes no longer terminate on the fine-tune's
+    <end_of_turn> token, so generations run past the proverb into template
+    fragments, literal "\\n" escapes, and stray non-Latin tokens until they
+    hit num_predict. Keep everything through the last complete sentence and
+    drop the rest.
+    """
+    # Whole angle-bracket tags and literal "\n" escapes are removed (not
+    # cut at) so a proverb that continues after them survives intact.
+    text = re.sub(r"<[^<>]*>", " ", text)
+    text = text.replace("\\n", " ")
+    for src, dst in _UNICODE_PUNCT.items():
+        text = text.replace(src, dst)
+    text = text.encode("ascii", "ignore").decode()
+    text = re.sub(r"\s+", " ", text)
+    # Six months of clean output use only letters, digits, space, and
+    # . ' , " ; : — so the first character outside that set marks where
+    # the proverb ends and the junk tail begins.
+    m = re.search(r"[^A-Za-z0-9 .',\";:!?-]", text)
+    if m:
+        text = text[: m.start()]
+    # A run of adjacent punctuation is also junk; keep its leading char
+    # if that char legitimately ends the sentence.
+    m = re.search(r"[.,;:!?-] ?[.,;:!?-]", text)
+    if m:
+        keep = m.start() + 1 if text[m.start()] in ".!?" else m.start()
+        text = text[:keep]
+    # Cut after the last complete sentence; if the generation was cut off
+    # mid-sentence by num_predict, trim trailing junk instead.
+    m = re.match(r".*[.!?]\"?", text)
+    if m:
+        text = m.group(0)
+    else:
+        text = re.sub(r"[^A-Za-z0-9'\"\s]+$", "", text)
+    return text.strip() or "The spirits are silent."
+
+
 # Each iPad domain maps to a pool of single-word themes from the training data.
 # The Modelfile bakes in the system prompt and Gemma chat template, so we only
 # need to send one theme word per request via /api/generate.
@@ -70,8 +131,13 @@ async def generate_divination(
         "model": MODEL_NAME,
         "prompt": prompt_theme,
         "stream": True,
+        "options": GENERATION_OPTIONS,
     }
 
+    # Buffer the whole generation before sanitizing: junk tokens arrive
+    # split across stream chunks, so per-chunk filtering can't catch them.
+    # The ThinkingPage animation covers the few seconds this adds.
+    chunks: list[str] = []
     async with httpx.AsyncClient(timeout=120.0) as client:
         async with client.stream(
             "POST", f"{OLLAMA_BASE_URL}/api/generate", json=payload
@@ -82,14 +148,10 @@ async def generate_divination(
                 if not line:
                     continue
                 data = json.loads(line)
-                token = data.get("response", "")
-                # Filter out special tokens leaking from the model
-                # Strip any angle-bracket tokens (Gemma template tokens,
-                # hallucinated tags like <hashlib>, etc.)
-                token = re.sub(r"<[^>]*>?", "", token)
-                if token:
-                    # Yield character-by-character for smooth typewriter effect
-                    for char in token:
-                        yield char
+                chunks.append(data.get("response", ""))
                 if data.get("done", False):
                     break
+
+    # Yield character-by-character for smooth typewriter effect
+    for char in sanitize_divination("".join(chunks)):
+        yield char
